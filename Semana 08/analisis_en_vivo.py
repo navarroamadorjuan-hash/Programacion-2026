@@ -15,12 +15,86 @@ print("Atenciones recibidas:", len(registros))
 if len(registros) < 3:
     raise SystemExit("Se necesitan al menos 3 registros. Publique la etapa 3.")
 
-
 # FASE 1: MOSTRAR Y CONTAR LOS MEDICAMENTOS DE TRES ATENCIONES
+# Cada clave es un nombre de medicamento y su valor es el nombre estandarizado
+equivalencias = {
+    "acetaminofen" : "acetaminofén",
+    "paracetamol": "acetaminofén",
+    "antiacido": "antíacido",
+    "losartán": "losartan"
+}
+conteo_medicamentos = {}
+total_medicamentos = 0
+print("\n\tANALISIS FASE #1 MUESTRA 3")
+for indice in range (3):
+    registro = registros[indice]
+    print(f"\nCédula: {registro['paciente_cedula']}"
+        f"\n- Paciente: {registro['paciente_nombre']}"
+        f"\n- Diagnóstico: {registro['diagnostico']}"
+        f"\n- Medicamentos: {registro['medicamentos']}")
+
+    for medicamento in registro['medicamentos']:
+        #Limpieza PARACETAMOL -> paracetamol -> aceteminofén
+        medicamento = medicamento.strip().lower()
+        if medicamento in equivalencias:
+            medicamento = equivalencias[medicamento]
+        #Contar medicamentos
+        total_medicamentos += 1
+        if medicamento in conteo_medicamentos:
+            conteo_medicamentos[medicamento] += 1
+        else:
+            conteo_medicamentos[medicamento] = 1
+        
+print("\nTotal de medicamentos recetados:", total_medicamentos)
+print(conteo_medicamentos)
 
 # FASE 2: CONTAR LOS MEDICAMENTOS DE TODAS LAS ATENCIONES
+print("\nANALISIS FASE #2 MEDICAMENTOS Y ATENCIONES")
+conteo_medicamentos = {}
+total_medicamentos = 0
+for registro in registros:
+    for medicamento in registro['medicamentos']:
+        #Limpieza PARACETAMOL -> paracetamol -> aceteminofén
+        medicamento = medicamento.strip().lower()
+        if medicamento in equivalencias:
+            medicamento = equivalencias[medicamento]
+        #Contar medicamentos
+        total_medicamentos += 1
+        if medicamento in conteo_medicamentos:
+            conteo_medicamentos[medicamento] += 1
+        else:
+            conteo_medicamentos[medicamento] = 1
+            
+print("\nTotal de medicamentos recetados:", total_medicamentos)
+for medicamento, cantidad in conteo_medicamentos.items():
+    print(f"- {medicamento}: {cantidad}")
 
 # FASE 3: CONTAR ATENCIONES POR HOSPITAL
+conteo_hospital = {}
 
+for registro in registros:
+    hospital = registro["hospital"]
+
+    if hospital in conteo_hospital:
+        conteo_hospital[hospital] += 1
+    else:
+        conteo_hospital[hospital] = 1
+
+for hospital, cantidad in conteo_hospital.items():
+    print(f"- {hospital}: {cantidad}")
 # FASE 4: CONTAR ATENCIONES POR ENFERMEDAD DIAGNOSTICADA
+conteo_diagnostico = {}
+
+for registro in registros:
+    diagnostico = registro["diagnostico"]
+
+    if diagnostico in conteo_diagnostico:
+        conteo_diagnostico[diagnostico] += 1
+    else:
+        conteo_diagnostico[diagnostico] = 1
+
+for diagnostico, cantidad in conteo_diagnostico.items():
+    print(f"- {diagnostico}: {cantidad}")
+    print(f"- {diagnostico}")
+
 
