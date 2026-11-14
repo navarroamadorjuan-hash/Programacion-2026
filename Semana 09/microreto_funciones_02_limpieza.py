@@ -1,9 +1,5 @@
-"""Microreto: limpiar y agrupar nombres de medicamentos."""
-
-# Este diccionario contiene las equivalencias del ejercicio.
-# La clave es el nombre que podría escribir la persona.
-# El valor es el nombre que guardaremos en la lista.
-# Las claves están en mayúsculas porque convertiremos la entrada a mayúsculas.
+# Diccionario de equivalencias: diferentes formas de escribir
+# un medicamento se convierten a un solo nombre estándar.
 EQUIVALENCIAS = {
     "ACETAMINOFEN": "ACETAMINOFÉN",
     "PARACETAMOL": "ACETAMINOFÉN",
@@ -12,26 +8,11 @@ EQUIVALENCIAS = {
     "SALIR": "N",
 }
 
-
 def limpiar_nombre(nombre):
-    """Limpia el texto y devuelve su nombre equivalente."""
-
-    # upper() convierte las letras a mayúsculas.
-    # strip() elimina los espacios al inicio y al final del texto.
     nombre = nombre.upper().strip()
-
-    # get() busca el nombre dentro del diccionario.
-    #
-    # Si encuentra la clave, devuelve su equivalencia.
-    # Por ejemplo, "PANADOL" devuelve "ACETAMINOFÉN".
-    #
-    # Si la clave no existe, devuelve el segundo argumento: nombre.
-    # Por ejemplo, "AMOXICILINA" conserva su nombre limpio.
     nombre = EQUIVALENCIAS.get(nombre, nombre)
-
     # return entrega el resultado al lugar donde se llamó la función.
     return nombre
-
 
 # La lista comienza vacía.
 # Aquí guardaremos cada medicamento después de limpiarlo.
@@ -40,7 +21,6 @@ medicamentos = []
 # El ciclo permite ingresar varios medicamentos.
 # True mantiene el ciclo activo hasta que ejecutemos break.
 while True:
-
     # input() recibe lo que escribe la persona como una cadena de texto.
     medicamento = input(
         "Ingrese el nombre del medicamento o 'n' para salir: "
@@ -51,7 +31,7 @@ while True:
     # y se aplica la equivalencia cuando existe.
     medicamento = limpiar_nombre(medicamento)
 
-    # Una entrada como "n", " N " o "salir" termina convertida en "N".
+    # Una entrada como "n", "N" o "salir" termina convertida en "N".
     # break termina el ciclo antes de agregar esa entrada a la lista.
     if medicamento == "N":
         break
@@ -69,14 +49,13 @@ while True:
     # Mostramos el nombre que realmente quedó guardado.
     print("Medicamento registrado:", medicamento)
 
-
 # Esta parte se ejecuta después de salir del ciclo.
 print("\nMedicamentos registrados:")
 print(medicamentos)
 
 # También podemos llamar a la función directamente dentro de print().
 # Como esta frase no está en el diccionario, solo se limpia y pasa a mayúsculas.
-print(limpiar_nombre("        fin del programa  "))
+print(limpiar_nombre("     fin del programa  "))
 
 # Mantiene abierta la terminal hasta que la persona presione Enter.
 input("Presione Enter para salir...")
